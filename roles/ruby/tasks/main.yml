@@ -1,0 +1,13 @@
+---
+
+- name: Add ruby ppa
+  apt_repository: repo='ppa:brightbox/ruby-ng'
+
+- name: Install ruby2.2.x + some related packages
+  apt: name={{ item }} state=present
+  with_items:
+    - ruby2.2
+    - ruby-switch
+
+- name: Install bundler
+  gem: name=bundler state=latest
