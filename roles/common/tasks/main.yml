@@ -1,0 +1,30 @@
+---
+
+- name: Remove unnecessary packages
+  apt: name={{ item }} state=absent purge=yes
+  with_items:
+    - puppet
+    - chef
+    - juju
+    - x11-common
+
+- name: Upgrade existing packages
+  apt: update_cache=yes upgrade=dist
+
+- name: Install common packages
+  apt: name={{ item }} state=present
+  with_items:
+    - mc
+    - git
+    - multitail
+    - python-psycopg2
+    - nmap
+    - htop
+    - build-essential
+
+- name: Cleanup orphaned packages
+  shell: apt-get autoremove -y
+
+- name: apt-get clean
+  shell: apt-get clean
+
