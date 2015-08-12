@@ -8,6 +8,9 @@
     - juju
     - x11-common
 
+- name: Hold current linux-image version
+  shell: echo $(dpkg -l "*$(uname -r)*" | grep image | awk '{print $2}') hold | dpkg --set-selections
+
 - name: Upgrade existing packages
   apt: update_cache=yes upgrade=dist
 
